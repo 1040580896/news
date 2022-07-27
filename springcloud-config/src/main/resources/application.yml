@@ -1,0 +1,67 @@
+############################################################
+#
+# 配置服务 Config
+# web访问端口号  约定：7000
+#
+############################################################
+server:
+  port: 9092
+  tomcat:
+    uri-encoding: UTF-8
+    max-swallow-size: -1  # tomcat默认大小2M，超过2M的文件不会被捕获，需要调整此处大小为100MB或者-1即可
+
+############################################################
+#
+# 配置项目信息
+#
+############################################################
+spring:
+  application:
+    name: springcloud-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/1040580896/news-config.git
+  redis:
+    database: 0
+    host: 124.222.219.104
+    port: 6379
+    password: asd112211
+  rabbitmq:
+    host: 124.222.219.104
+    username: admin
+    password: admin
+    port: 5672
+    virtual-host: news
+
+############################################################
+#
+# eureka client 配置信息
+#
+############################################################
+eureka:
+  # 自定义eureka server的信息
+  server:
+    hostname: eureka
+    port: 9000
+  client:
+    # 所有的微服务都必须注册到eureka中
+    register-with-eureka: true
+    # 从注册中心获得检索服务实例
+    fetch-registry: true
+    # 注册中心的服务地址
+    service-url:
+      #      defaultZone: http://${eureka.server.hostname}:${eureka.server.port}/eureka/
+      defaultZone: http://eureka-cluster-9001:9001/eureka/,http://eureka-cluster-9002:9002/eureka/,http://eureka-cluster-9003:9003/eureka/
+#  instance:
+#    lease-renewal-interval-in-seconds: 3      # 调整微服务（eureka client）和注册中心（eureka server）的心跳时间
+#    lease-expiration-duration-in-seconds: 5   # eureka 举例最近的一次心跳等待提出的时间，默认90s
+
+
+# 配置动态刷新git配置的路径终端请求地址
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

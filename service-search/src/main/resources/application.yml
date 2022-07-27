@@ -1,0 +1,23 @@
+############################################################
+#
+# 文件微服务
+# web访问端口号  约定：8003
+#
+############################################################
+server:
+  port: 8006
+
+
+
+spring:
+  redis:
+    database: 0
+    host: 124.222.219.104
+    port: 6379
+    password: asd112211
+  rabbitmq:
+    host: 124.222.219.104
+    username: admin
+    password: admin
+    port: 5672
+    virtual-host: news

@@ -1,0 +1,18 @@
+server:
+  port: 8004
+
+spring:
+  redis:
+    database: 0
+    host: 124.222.219.104
+    port: 6379
+    password: asd112211
+
+# 在dev环境开启日志
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 设置域名，在java代码中获取，这里是资源配置
+website:
+  domain-name: imooc-news.com

@@ -1,0 +1,43 @@
+############################################################
+#
+# eureka 注册中心
+# web访问端口号  约定：9001 ~ 9003
+#
+############################################################
+server:
+  port: ${port:9001}
+  tomcat:
+    uri-encoding: UTF-8
+    max-swallow-size: -1  # tomcat默认大小2M，超过2M的文件不会被捕获，需要调整此处大小为100MB或者-1即可
+
+############################################################
+#
+# 配置项目信息
+#
+############################################################
+spring:
+  application:
+    name: springcloud-eureka-cluster
+
+############################################################
+#
+# eureka配置信息
+#
+############################################################
+eureka:
+  instance:
+    # 集群中每个eureka的名字都是唯一的
+    hostname: eureka-cluster-${server.port}
+  other-node-port2: ${p2:9002}
+  other-node-port3: ${p3:9003}
+  client:
+    # 是否要把当前的eureka server注册到自己
+#    register-with-eureka: false
+    # 从注册中心获得检索服务实例，server没有必要，直接false即可
+#    fetch-registry: false
+    # 单实例配置自己的服务地址，高可用集群则配置多个地址
+    service-url:
+      defaultZone: http://eureka-cluster-${eureka.other-node-port2}:${eureka.other-node-port2}/eureka/,http://eureka-cluster-${eureka.other-node-port3}:${eureka.other-node-port3}/eureka/
+  server:
+    enable-self-preservation: false   # 关闭eureka的自我保护功能
+    eviction-interval-timer-in-ms: 5000   # 清理无效节点的时间，可以缩短为5s，默认60s

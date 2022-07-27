@@ -1,0 +1,61 @@
+############################################################
+#
+# 文件微服务
+# web访问端口号  约定：8003
+#
+############################################################
+server:
+#  port: 8004
+  tomcat:
+    uri-encoding: UTF-8
+    max-swallow-size: -1  # tomcat默认大小2M，超过2M的文件不会被捕获，需要调整此处大小为100MB或者-1即可
+
+############################################################
+#
+# 配置项目信息
+#
+############################################################
+spring:
+  profiles:
+    active: prod   # yml中配置文件的环境配置，dev：开发环境，test：测试环境，prod：生产环境
+  application:
+    name: service-files
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 10MB  # 请求的文件大小500kb
+      max-request-size: 12MB
+  data:
+    mongodb:
+      uri: mongodb://admin:123456@124.222.219.104:27017
+      database: imooc-news
+
+############################################################
+#
+# fastdfs 的配置信息
+#
+############################################################
+fdfs:
+  connect-timeout: 30
+  so-timeout: 30
+  tracker-list: 192.168.1.155:22122
+
+eureka:
+  # 自定义eureka server的信息
+  server:
+    hostname: eureka
+    port: 9000
+  client:
+    # 所有的微服务都必须注册到eureka中
+    register-with-eureka: true
+    # 从注册中心获得检索服务实例
+    fetch-registry: true
+    # 注册中心的服务地址
+    service-url:
+      #      defaultZone: http://${eureka.server.hostname}:${eureka.server.port}/eureka/
+      defaultZone: http://eureka-cluster-9001:9001/eureka/,http://eureka-cluster-9002:9002/eureka/,http://eureka-cluster-9003:9003/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 3      # 调整微服务（eureka client）和注册中心（eureka server）的心跳时间
+    lease-expiration-duration-in-seconds: 5   # eureka 举例最近的一次心跳等待提出的时间，默认90s

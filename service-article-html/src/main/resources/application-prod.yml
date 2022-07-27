@@ -1,0 +1,20 @@
+server:
+  port: 8002
+
+spring:
+  redis:
+    database: 0
+    host: 124.222.219.104
+    port: 6379
+    password: asd112211
+  rabbitmq:
+    host: 124.222.219.104
+    username: admin
+    password: admin
+    port: 5672
+    virtual-host: news
+
+
+# 设置域名，在java代码中获取，这里是资源配置
+website:
+  domain-name: imooc-news.com

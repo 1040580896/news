@@ -1,0 +1,15 @@
+# Project exclude paths
+/common/target/
+/model/target/
+/mybatis-generator-database/target/
+/service-admin/target/
+/service-article/target/
+/service-article-html/target/
+/service-files/target/
+/service-search/target/
+/services-api/target/
+/services-user/target/
+/springcloud-config/target/
+/springcloud-eureka/target/
+/springcloud-eureka-cluster/target/
+/springcloud_zuul_server/target/
